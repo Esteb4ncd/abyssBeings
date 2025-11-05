@@ -202,4 +202,22 @@ export const creatures = [
     adaptations: 'Tube feet locomotion, detritus feeding, deep pressure tolerance',
     image: '🐷'
   }
+  ,
+  // Hadal Snailfish placeholder for Trenches
+  {
+    id: 'hadal-snailfish',
+    name: 'Hadal Snailfish',
+    scientificName: 'Pseudoliparis swirei',
+    zone: 'hadalpelagic',
+    depth: '6500-8000m',
+    description: 'One of the deepest-living fish known, adapted to life in the hadal trenches under immense pressure.',
+    facts: [
+      'Recorded at depths beyond 8000 meters in trenches',
+      'Gelatinous body reduces air spaces to withstand pressure',
+      'Feeds on small crustaceans and invertebrates',
+      'Discovered with deep-sea landers and specialized cameras'
+    ],
+    adaptations: 'Pressure tolerance, soft bones, specialized membranes',
+    image: '🐟'
+  }
 ];

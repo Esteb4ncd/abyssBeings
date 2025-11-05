@@ -5,7 +5,7 @@
 }
 
 .main {
-  padding-top: 100px;
+  padding-top: 40px;
   padding-bottom: 4rem;
   max-width: 1400px;
   margin: 0 auto;
@@ -97,6 +97,10 @@
   font-family: var(--font-geist-mono);
   transition: all 0.3s ease;
   border-bottom: 1px solid transparent;
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .sourceLink:hover {
@@ -136,7 +140,7 @@
 
 @media (max-width: 768px) {
   .main {
-    padding-top: 80px;
+    padding-top: 24px;
     padding-left: 1rem;
     padding-right: 1rem;
   }

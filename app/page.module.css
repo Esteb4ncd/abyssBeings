@@ -7,21 +7,33 @@
 .mainLayout {
   display: flex;
   min-height: 100vh;
-  padding-top: 80px;
+  padding-top: 0;
 }
 
 /* Sidebar Navigation */
 .sidebar {
   position: fixed;
   left: 0;
-  top: 80px;
+  top: 0;
   width: 280px;
-  height: calc(100vh - 80px);
+  height: 100vh;
   background: rgba(0, 20, 40, 0.95);
   backdrop-filter: blur(10px);
   border-right: 1px solid rgba(0, 212, 255, 0.2);
   overflow-y: auto;
   z-index: 100;
+}
+
+.sidebarHidden {
+  transform: translateX(-110%);
+  opacity: 0;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.sidebar:not(.sidebarHidden) {
+  transform: translateX(0);
+  opacity: 1;
+  transition: transform 0.4s ease, opacity 0.4s ease;
 }
 
 .sidebarContent {
@@ -147,8 +159,17 @@
   padding: 0;
 }
 
+.mainContentFull {
+  margin-left: 0;
+}
+
 /* Hero Section */
 .hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   padding: 6rem 4rem 4rem;
   text-align: center;
   max-width: 1200px;
@@ -191,11 +212,14 @@
 
 /* Zone Sections */
 .zoneSection {
-  padding: 6rem 4rem;
+  padding: 2rem 4rem;
   max-width: 1400px;
   margin: 0 auto;
   border-top: 4px solid;
   scroll-margin-top: 100px;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
 }
 
 .zoneHeader {
@@ -236,14 +260,42 @@
   font-size: 1.1rem;
   line-height: 1.8;
   color: #b0e0ff;
-  margin-bottom: 3rem;
+  margin-bottom: 1.5rem;
   max-width: 900px;
+}
+
+.zoneGrid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 2.5rem;
+  width: 100%;
+}
+
+.zoneLeft {}
+.zoneRight {
+  display: flex;
+  align-items: center;
+}
+
+.zoneFacts {
+  list-style: none;
+  margin: 0 0 1.5rem 0;
+  padding: 0;
+}
+
+.zoneFacts li {
+  padding: 0.6rem 0.9rem;
+  margin: 0.4rem 0;
+  background: rgba(0, 212, 255, 0.08);
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  border-radius: 10px;
+  color: #b0e0ff;
 }
 
 /* Zone Visual */
 .zoneVisual {
   margin: 3rem 0;
-  height: 400px;
+  height: 420px;
   border-radius: 24px;
   overflow: hidden;
   position: relative;
@@ -265,6 +317,54 @@
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 2.5rem;
   margin-top: 4rem;
+}
+
+/* Featured single large creature */
+.featuredCreature {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  align-items: center;
+  background: rgba(0, 20, 40, 0.6);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  border-radius: 20px;
+  padding: 2rem;
+  margin-top: 0;
+  backdrop-filter: blur(10px);
+}
+
+.featuredIcon {
+  font-size: clamp(6rem, 12vw, 12rem);
+  text-align: center;
+  filter: drop-shadow(0 0 30px rgba(0, 212, 255, 0.5));
+  animation: float 4s ease-in-out infinite;
+}
+
+.featuredInfo {}
+
+.featuredName {
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: #00d4ff;
+  margin-bottom: 0.5rem;
+  font-weight: 800;
+}
+
+.featuredMeta {
+  font-size: 1rem;
+  color: #00ffff;
+  font-style: italic;
+  font-family: var(--font-geist-mono);
+  margin-bottom: 0.75rem;
+}
+
+.featuredDepth {
+  color: #b0e0ff;
+  margin-bottom: 1rem;
+}
+
+.featuredDescription {
+  color: #b0e0ff;
+  opacity: 0.9;
 }
 
 .creatureCard {
@@ -393,10 +493,13 @@
   }
 
   .zoneSection {
-    padding: 4rem 2rem;
+    padding: 2rem;
   }
 
   .creaturesGrid {
+    grid-template-columns: 1fr;
+  }
+  .zoneGrid {
     grid-template-columns: 1fr;
   }
 }
@@ -424,10 +527,14 @@
   }
 
   .zoneSection {
-    padding: 3rem 1.5rem;
+    padding: 2rem 1rem;
   }
 
   .zoneVisual {
     height: 300px;
+  }
+
+  .featuredCreature {
+    grid-template-columns: 1fr;
   }
 }

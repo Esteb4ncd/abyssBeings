@@ -35,12 +35,6 @@ export default function Navigation() {
           >
             Explore
           </button>
-          <button
-            className={`${styles.navLink} ${pathname === '/references' ? styles.active : ''}`}
-            onClick={() => router.push('/references')}
-          >
-            References
-          </button>
         </div>
       </div>
     </nav>

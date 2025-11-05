@@ -1,18 +1,25 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import Navigation from './components/Navigation';
 import Hotspot from './components/Hotspot';
 import { oceanZones, creatures } from './data/creatures';
 import styles from './page.module.css';
 
 export default function Home() {
-  const [activeZone, setActiveZone] = useState('epipelagic');
+  // Focused zones: Midnight (bathypelagic), The Abyss (abyssopelagic), The Trenches (hadalpelagic)
+  const focusedZones = [
+    { id: 'bathypelagic', label: 'Midnight Zone', color: '#001133' },
+    { id: 'abyssopelagic', label: 'The Abyss', color: '#000722' },
+    { id: 'hadalpelagic', label: 'The Trenches', color: '#000000' },
+  ];
+
+  const [activeZone, setActiveZone] = useState(focusedZones[0].id);
+  const [showSidebar, setShowSidebar] = useState(false);
   const zoneRefs = useRef({});
 
   useEffect(() => {
     // Create refs for each zone
-    oceanZones.forEach(zone => {
+    focusedZones.forEach(zone => {
       zoneRefs.current[zone.id] = document.getElementById(zone.id);
     });
   }, []);
@@ -28,9 +35,10 @@ export default function Home() {
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY + 200;
+      setShowSidebar(window.scrollY > window.innerHeight * 0.6);
 
-      for (let i = oceanZones.length - 1; i >= 0; i--) {
-        const zone = oceanZones[i];
+      for (let i = focusedZones.length - 1; i >= 0; i--) {
+        const zone = focusedZones[i];
         const element = document.getElementById(zone.id);
         if (element && element.offsetTop <= scrollPosition) {
           setActiveZone(zone.id);
@@ -43,20 +51,50 @@ export default function Home() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const getCreaturesForZone = (zoneId) => {
-    return creatures.filter(c => c.zone === zoneId);
+  const getPrimaryCreatureForZone = (zoneId) => {
+    // Midnight -> Black Dragonfish (use dragonfish as data), Abyss -> Dumbo Octopus, Trenches -> Hadal Snailfish
+    if (zoneId === 'bathypelagic') {
+      const dragon = creatures.find(c => c.name.toLowerCase().includes('dragon'));
+      return dragon || { id: 'black-dragonfish', name: 'Black Dragonfish', scientificName: '', depth: '1000-3000m', adaptations: '', image: '🐉', description: 'Large placeholder for Black Dragonfish.' };
+    }
+    if (zoneId === 'abyssopelagic') {
+      const dumbo = creatures.find(c => c.name.toLowerCase().includes('dumbo'));
+      return dumbo || { id: 'dumbo-octopus', name: 'Dumbo Octopus', scientificName: '', depth: '3000-7000m', adaptations: '', image: '🐙', description: 'Large placeholder for Dumbo Octopus.' };
+    }
+    if (zoneId === 'hadalpelagic') {
+      const snail = creatures.find(c => c.id === 'hadal-snailfish') || creatures.find(c => c.name.toLowerCase().includes('snailfish'));
+      return snail || { id: 'hadal-snailfish', name: 'Hadal Snailfish', scientificName: '', depth: '6500-8000m', adaptations: '', image: '🐟', description: 'Large placeholder for Hadal Snailfish.' };
+    }
+    return null;
+  };
+
+  const zoneFacts = {
+    bathypelagic: [
+      'No sunlight reaches here — perpetual darkness',
+      'Pressure can exceed 100–400 atm',
+      'Bioluminescence is common for hunting and signaling',
+    ],
+    abyssopelagic: [
+      'Near-freezing temperatures year-round',
+      'Food is scarce; many species are scavengers',
+      'Life moves slowly to conserve energy',
+    ],
+    hadalpelagic: [
+      'Deep ocean trenches beyond 6000 m',
+      'Immense pressure > 600 atm',
+      'Species are highly specialized and rarely observed',
+    ],
   };
 
   return (
     <div className={styles.container}>
-      <Navigation />
       <div className={styles.mainLayout}>
         {/* Left Sidebar Navigation */}
-        <aside className={styles.sidebar}>
+        <aside className={`${styles.sidebar} ${showSidebar ? '' : styles.sidebarHidden}`}>
           <div className={styles.sidebarContent}>
             <h2 className={styles.sidebarTitle}>Ocean Zones</h2>
             <nav className={styles.zoneNav}>
-              {oceanZones.map((zone) => (
+              {focusedZones.map((zone) => (
                 <button
                   key={zone.id}
                   className={`${styles.zoneNavButton} ${activeZone === zone.id ? styles.active : ''}`}
@@ -67,8 +105,8 @@ export default function Home() {
                   }}
                 >
                   <div className={styles.zoneNavInfo}>
-                    <span className={styles.zoneNavName}>{zone.name}</span>
-                    <span className={styles.zoneNavDepth}>{zone.depth}</span>
+                    <span className={styles.zoneNavName}>{zone.label}</span>
+                    <span className={styles.zoneNavDepth}>{(oceanZones.find(z => z.id === zone.id) || {}).depth}</span>
                   </div>
                   <div 
                     className={styles.zoneNavIndicator}
@@ -77,16 +115,11 @@ export default function Home() {
                 </button>
               ))}
             </nav>
-            <div className={styles.sidebarFooter}>
-              <a href="/references" className={styles.referencesLink}>
-                References →
-              </a>
-            </div>
           </div>
         </aside>
 
         {/* Main Scrollable Content */}
-        <main className={styles.mainContent}>
+        <main className={`${styles.mainContent} ${showSidebar ? '' : styles.mainContentFull}`}>
           {/* Hero Section */}
           <section className={styles.hero}>
             <h1 className={styles.heroTitle}>
@@ -102,9 +135,10 @@ export default function Home() {
           </section>
 
           {/* Zone Sections */}
-          {oceanZones.map((zone, zoneIndex) => {
-            const zoneCreatures = getCreaturesForZone(zone.id);
-            
+          {focusedZones.map((zone, zoneIndex) => {
+            const baseZone = oceanZones.find(z => z.id === zone.id);
+            const primary = getPrimaryCreatureForZone(zone.id);
+            const darkness = Math.min(0.3 + zoneIndex * 0.25, 0.85);
             return (
               <section
                 key={zone.id}
@@ -112,49 +146,62 @@ export default function Home() {
                 className={styles.zoneSection}
                 style={{ 
                   borderTopColor: zone.color,
-                  background: `linear-gradient(180deg, ${zone.color}15 0%, transparent 100%)`
+                  background: `linear-gradient(180deg, rgba(0,0,0,${darkness}) 0%, transparent 100%)`
                 }}
               >
-                <div className={styles.zoneHeader}>
-                  <div 
-                    className={styles.zoneIndicator}
-                    style={{ background: zone.color }}
-                  />
-                  <h2 className={styles.zoneTitle}>{zone.name}</h2>
-                  <div className={styles.zoneMeta}>
-                    <span className={styles.zoneDepth}>{zone.depth}</span>
-                  </div>
-                </div>
-
-                <p className={styles.zoneDescription}>{zone.description}</p>
-
-                {/* Zone Visual with Hotspots (Placeholders) */}
-                <div className={styles.zoneVisual}>
-                  <div 
-                    className={styles.zoneBackground}
-                    style={{ background: zone.color }}
-                  >
-                    {/* Placeholder hotspots - user will add custom graphics later */}
-                    <Hotspot x={25} y={30} info="Hotspot placeholder - custom graphics coming soon" />
-                    <Hotspot x={70} y={50} info="Hotspot placeholder - custom graphics coming soon" />
-                    <Hotspot x={50} y={75} info="Hotspot placeholder - custom graphics coming soon" />
-                  </div>
-                </div>
-
-                {/* Creatures in this Zone */}
-                <div className={styles.creaturesGrid}>
-                  {zoneCreatures.map((creature) => (
-                    <div key={creature.id} className={styles.creatureCard}>
-                      <div className={styles.creatureIcon}>{creature.image}</div>
-                      <h3 className={styles.creatureName}>{creature.name}</h3>
-                      <p className={styles.creatureScientific}>{creature.scientificName}</p>
-                      <p className={styles.creatureDepth}>Depth: {creature.depth}</p>
-                      <p className={styles.creatureDescription}>{creature.description}</p>
-                      <div className={styles.adaptations}>
-                        <strong>Adaptations:</strong> {creature.adaptations}
+                <div className={styles.zoneGrid}>
+                  {/* Left: Zone info and hotspots */}
+                  <div className={styles.zoneLeft}>
+                    <div className={styles.zoneHeader}>
+                      <div 
+                        className={styles.zoneIndicator}
+                        style={{ background: zone.color }}
+                      />
+                      <h2 className={styles.zoneTitle}>{zone.label}</h2>
+                      <div className={styles.zoneMeta}>
+                        <span className={styles.zoneDepth}>{baseZone?.depth}</span>
                       </div>
                     </div>
-                  ))}
+                    <p className={styles.zoneDescription}>{baseZone?.description}</p>
+                    <ul className={styles.zoneFacts}>
+                      {(zoneFacts[zone.id] || []).map((fact, idx) => (
+                        <li key={idx}>{fact}</li>
+                      ))}
+                    </ul>
+                    <div className={styles.zoneVisual}>
+                      <div 
+                        className={styles.zoneBackground}
+                        style={{ background: zone.color }}
+                      >
+                        {/* Placeholder hotspots with short facts */}
+                        {(zoneFacts[zone.id] || []).slice(0, 3).map((fact, i) => (
+                          <Hotspot
+                            key={i}
+                            x={[25, 65, 45][i]}
+                            y={[30, 50, 75][i]}
+                            info={fact}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Right: Single Large Creature Placeholder */}
+                  <div className={styles.zoneRight}>
+                    {primary && (
+                      <div className={styles.featuredCreature}>
+                        <div className={styles.featuredIcon}>{primary.image}</div>
+                        <div className={styles.featuredInfo}>
+                          <h3 className={styles.featuredName}>
+                            {zone.id === 'bathypelagic' ? 'Black Dragonfish' : zone.id === 'abyssopelagic' ? 'Dumbo Octopus' : 'Hadal Snailfish'}
+                          </h3>
+                          <p className={styles.featuredMeta}>{primary.scientificName || '—'}</p>
+                          <p className={styles.featuredDepth}>Depth: {primary.depth}</p>
+                          <p className={styles.featuredDescription}>Large placeholder graphic area — custom illustration to be added.</p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </section>
             );

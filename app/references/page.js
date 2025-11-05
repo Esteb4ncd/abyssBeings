@@ -1,147 +1,95 @@
 'use client';
-
-import Navigation from '../components/Navigation';
 import styles from './page.module.css';
 
 export default function ReferencesPage() {
+  const formatUrl = (raw) => {
+    try {
+      const u = new URL(raw);
+      // Keep hostname and first path segment if present
+      const seg = u.pathname.split('/').filter(Boolean)[0];
+      return seg ? `${u.hostname}/${seg}` : u.hostname;
+    } catch (e) {
+      return raw;
+    }
+  };
   const references = [
     {
-      category: 'Ocean Zones & General Information',
+      category: 'Midnight Zone (Bathypelagic)',
       sources: [
         {
-          title: 'NOAA Ocean Explorer - Ocean Zones',
+          title: 'Bathypelagic (Midnight Zone) Overview — NOAA',
           url: 'https://oceanexplorer.noaa.gov',
-          description: 'Comprehensive information about ocean zones, depth ranges, and characteristics.'
+          description: 'Depth, pressure, temperature, and light conditions of the midnight zone.'
         },
         {
-          title: 'National Geographic - Ocean Zones',
-          url: 'https://www.nationalgeographic.org/encyclopedia/ocean-zone/',
-          description: 'Educational resource on ocean depth zones and their environmental conditions.'
-        },
-        {
-          title: 'MBARI - Monterey Bay Aquarium Research Institute',
-          url: 'https://www.mbari.org',
-          description: 'Research and information about deep-sea ecosystems and organisms.'
-        }
-      ]
-    },
-    {
-      category: 'Deep-Sea Creatures',
-      sources: [
-        {
-          title: 'Smithsonian Ocean - Deep Sea Creatures',
+          title: 'Black Dragonfish (Stomiidae) — Smithsonian Ocean',
           url: 'https://ocean.si.edu',
-          description: 'Scientific information about deep-sea species and their adaptations.'
+          description: 'General information on dragonfish family, red bioluminescence, and hunting behavior.'
         },
         {
-          title: 'Woods Hole Oceanographic Institution',
-          url: 'https://www.whoi.edu',
-          description: 'Research publications and information about deep-sea biology.'
-        },
-        {
-          title: 'Animal Diversity Web - University of Michigan',
-          url: 'https://animaldiversity.org',
-          description: 'Detailed species information and scientific data on marine organisms.'
-        }
-      ]
-    },
-    {
-      category: 'Specific Creature Information',
-      sources: [
-        {
-          title: 'Anglerfish (Melanocetus johnsonii)',
-          url: 'https://www.nationalgeographic.com/animals/fish/facts/anglerfish',
-          description: 'Information about anglerfish biology, bioluminescence, and reproductive behavior.'
-        },
-        {
-          title: 'Vampire Squid (Vampyroteuthis infernalis)',
-          url: 'https://www.mbari.org/animal/vampire-squid/',
-          description: 'MBARI research on vampire squid anatomy, behavior, and ecology.'
-        },
-        {
-          title: 'Giant Tube Worms (Riftia pachyptila)',
-          url: 'https://ocean.si.edu/ocean-life/invertebrates/giant-tube-worms',
-          description: 'Smithsonian information on hydrothermal vent organisms and chemosynthesis.'
-        },
-        {
-          title: 'Barreleye Fish (Macropinna microstoma)',
-          url: 'https://www.mbari.org/barreleye-fish/',
-          description: 'MBARI research on barreleye fish transparent head and unique vision adaptations.'
-        },
-        {
-          title: 'Hatchetfish Information',
-          url: 'https://www.fishbase.se',
-          description: 'FishBase database with scientific data on hatchetfish species and distributions.'
-        },
-        {
-          title: 'Giant Isopod (Bathynomus giganteus)',
-          url: 'https://www.nationalgeographic.com/animals/invertebrates/facts/giant-isopod',
-          description: 'Information about giant isopod biology, size, and deep-sea adaptations.'
-        },
-        {
-          title: 'Dumbo Octopus (Grimpoteuthis)',
-          url: 'https://ocean.si.edu/ocean-life/invertebrates/dumbo-octopus',
-          description: 'Smithsonian information on deep-sea octopus species and their habitats.'
-        },
-        {
-          title: 'Sea Pig (Scotoplanes)',
-          url: 'https://www.mbari.org/animal/sea-pig/',
-          description: 'MBARI research on deep-sea sea cucumbers and their feeding behaviors.'
-        }
-      ]
-    },
-    {
-      category: 'Bioluminescence & Adaptations',
-      sources: [
-        {
-          title: 'Bioluminescence in the Deep Sea',
-          url: 'https://ocean.si.edu/ocean-life/fish/bioluminescence',
-          description: 'Scientific explanation of bioluminescence mechanisms and functions in deep-sea organisms.'
-        },
-        {
-          title: 'Deep-Sea Adaptations',
+          title: 'Deep-sea fish adaptations — Nature Education',
           url: 'https://www.nature.com/scitable/knowledge/library/adaptations-to-life-in-the-deep-sea-23601439/',
-          description: 'Nature Education article on physiological and behavioral adaptations to deep-sea environments.'
+          description: 'Physiological adaptations for darkness, pressure, and low energy environments.'
         }
       ]
     },
     {
-      category: 'Scientific Databases & Journals',
+      category: 'The Abyss (Abyssopelagic)',
       sources: [
         {
-          title: 'FishBase - Global Fish Information',
-          url: 'https://www.fishbase.se',
-          description: 'Comprehensive database of fish species with scientific names, distributions, and biological data.'
+          title: 'Abyssopelagic Zone basics — National Geographic',
+          url: 'https://www.nationalgeographic.org/encyclopedia/ocean-zone/',
+          description: 'Environmental conditions, ecology, and energy sources at abyssal depths.'
         },
         {
-          title: 'World Register of Marine Species (WoRMS)',
-          url: 'https://www.marinespecies.org',
-          description: 'Authoritative database of marine species names and taxonomic information.'
+          title: 'Dumbo Octopus (Grimpoteuthis) — Smithsonian Ocean',
+          url: 'https://ocean.si.edu/ocean-life/invertebrates/dumbo-octopus',
+          description: 'Species overview, depth range, morphology, and behavior.'
         },
         {
-          title: 'Deep Sea Research Part I & II',
+          title: 'Hydrothermal vents & abyssal ecosystems — WHOI',
+          url: 'https://www.whoi.edu',
+          description: 'Ecosystem functioning, vent communities, and food webs in the abyss.'
+        }
+      ]
+    },
+    {
+      category: 'The Trenches (Hadalpelagic)',
+      sources: [
+        {
+          title: 'Hadal Zone overview — MBARI',
+          url: 'https://www.mbari.org',
+          description: 'Characteristics of hadal trenches and research methods (landers/cameras).'
+        },
+        {
+          title: 'Hadal Snailfish (Pseudoliparis swirei) — Journal & press summaries',
           url: 'https://www.journals.elsevier.com/deep-sea-research',
-          description: 'Peer-reviewed scientific journals covering deep-sea research and discoveries.'
+          description: 'Discoveries of deepest-living fish, physiology, and pressure adaptations.'
+        },
+        {
+          title: 'WoRMS / FishBase — Taxonomy & distributions',
+          url: 'https://www.fishbase.se',
+          description: 'Authoritative species records and scientific naming for hadal fauna.'
         }
       ]
     },
     {
-      category: 'Educational Resources',
+      category: 'General & Educational',
       sources: [
         {
-          title: 'Ocean Portal - Smithsonian National Museum of Natural History',
+          title: 'Smithsonian Ocean Portal',
           url: 'https://ocean.si.edu',
-          description: 'Educational content about ocean ecosystems, creatures, and scientific research.'
+          description: 'Educational content about ocean ecosystems, creatures, and research.'
         },
         {
-          title: 'National Ocean Service - NOAA',
+          title: 'NOAA Ocean Service',
           url: 'https://oceanservice.noaa.gov',
-          description: 'Government resource providing educational information about ocean science and marine life.'
+          description: 'Government resource on ocean science and marine life.'
         },
         {
-          title: 'MarineBio Conservation Society',
-          url: 'https://marinebio.org',
-          description: 'Educational resources about marine biology, conservation, and ocean ecosystems.'
+          title: 'MBARI — Monterey Bay Aquarium Research Institute',
+          url: 'https://www.mbari.org',
+          description: 'Research updates, species spotlights, and deep-sea exploration.'
         }
       ]
     }
@@ -149,7 +97,6 @@ export default function ReferencesPage() {
 
   return (
     <div className={styles.container}>
-      <Navigation />
       <main className={styles.main}>
         <div className={styles.header}>
           <h1 className={styles.title}>References</h1>
@@ -173,8 +120,9 @@ export default function ReferencesPage() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className={styles.sourceLink}
+                      title={source.url}
                     >
-                      {source.url} →
+                      {formatUrl(source.url)} →
                     </a>
                   </div>
                 ))}

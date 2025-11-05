@@ -1,0 +1,295 @@
+.container {
+  min-height: 100vh;
+  position: relative;
+}
+
+.main {
+  padding-top: 100px;
+  padding-bottom: 4rem;
+  max-width: 1920px;
+  margin: 0 auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.backButton {
+  background: rgba(0, 20, 40, 0.6);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  border-radius: 12px;
+  padding: 0.75rem 1.5rem;
+  color: #00d4ff;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-bottom: 2rem;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.backButton:hover {
+  background: rgba(0, 212, 255, 0.1);
+  border-color: rgba(0, 212, 255, 0.6);
+  transform: translateX(-5px);
+}
+
+.zoneHeader {
+  text-align: center;
+  margin-bottom: 4rem;
+  animation: fadeIn 0.8s ease;
+}
+
+.zoneIndicator {
+  width: 80px;
+  height: 8px;
+  border-radius: 4px;
+  margin: 0 auto 2rem;
+  box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+}
+
+.title {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 900;
+  color: #00d4ff;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+}
+
+.zoneMeta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  color: #b0e0ff;
+  font-size: 1.2rem;
+}
+
+.depth {
+  font-weight: 700;
+  color: #00ffff;
+  font-family: var(--font-geist-mono);
+}
+
+.separator {
+  color: rgba(176, 224, 255, 0.5);
+}
+
+.description {
+  font-style: italic;
+}
+
+/* Zone Visual */
+.zoneVisual {
+  margin: 4rem 0;
+  height: 500px;
+  border-radius: 24px;
+  overflow: hidden;
+  position: relative;
+  border: 2px solid rgba(0, 212, 255, 0.3);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.zoneBackground {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  opacity: 0.8;
+  background: radial-gradient(ellipse at center, rgba(0, 212, 255, 0.2) 0%, rgba(0, 0, 0, 0.8) 100%);
+}
+
+.particleField {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: rgba(0, 212, 255, 0.6);
+  border-radius: 50%;
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.8);
+  animation: float 15s infinite ease-in-out;
+}
+
+/* Info Section */
+.infoSection {
+  margin: 4rem 0;
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.infoCard {
+  background: rgba(0, 20, 40, 0.6);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  border-radius: 20px;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.infoCard:hover {
+  transform: translateY(-5px);
+  border-color: rgba(0, 212, 255, 0.6);
+  box-shadow: 0 10px 40px rgba(0, 212, 255, 0.2);
+}
+
+.infoCard h3 {
+  font-size: 1.5rem;
+  color: #00d4ff;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.infoCard p {
+  color: #b0e0ff;
+  line-height: 1.7;
+}
+
+.infoCard ul {
+  list-style: none;
+  color: #b0e0ff;
+}
+
+.infoCard li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+  line-height: 1.6;
+}
+
+.infoCard li:last-child {
+  border-bottom: none;
+}
+
+/* Creatures Section */
+.creaturesSection {
+  margin-top: 6rem;
+}
+
+.sectionTitle {
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  color: #00d4ff;
+  margin-bottom: 3rem;
+  text-align: center;
+  font-weight: 700;
+}
+
+.creaturesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.creatureCard {
+  background: rgba(0, 20, 40, 0.6);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  border-radius: 20px;
+  padding: 2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.creatureCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.creatureCard:hover::before {
+  transform: scaleX(1);
+}
+
+.creatureCard:hover {
+  transform: translateY(-8px);
+  border-color: rgba(0, 212, 255, 0.8);
+  box-shadow: 0 15px 50px rgba(0, 212, 255, 0.3);
+}
+
+.creatureIcon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  filter: drop-shadow(0 0 20px rgba(0, 212, 255, 0.5));
+  animation: float 3s ease-in-out infinite;
+}
+
+.creatureName {
+  font-size: 1.5rem;
+  color: #00d4ff;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.creatureScientific {
+  font-size: 0.9rem;
+  color: #00ffff;
+  font-style: italic;
+  margin-bottom: 1rem;
+  font-family: var(--font-geist-mono);
+}
+
+.creatureDescription {
+  color: #b0e0ff;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+}
+
+.learnMoreButton {
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.2) 0%, rgba(0, 153, 204, 0.2) 100%);
+  border: 1px solid rgba(0, 212, 255, 0.5);
+  border-radius: 12px;
+  padding: 0.75rem 1.5rem;
+  color: #00d4ff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.learnMoreButton:hover {
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.3) 0%, rgba(0, 153, 204, 0.3) 100%);
+  border-color: rgba(0, 212, 255, 0.8);
+}
+
+.noCreatures {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: #b0e0ff;
+  font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+  .main {
+    padding-top: 80px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .zoneVisual {
+    height: 400px;
+  }
+
+  .infoGrid,
+  .creaturesGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+

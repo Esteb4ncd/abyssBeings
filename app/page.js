@@ -1,50 +1,95 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Navigation from './components/Navigation';
+import Hotspot from './components/Hotspot';
+import { oceanZones, creatures } from './data/creatures';
 import styles from './page.module.css';
 
 export default function Home() {
-  const router = useRouter();
-  const [particles, setParticles] = useState([]);
+  const [activeZone, setActiveZone] = useState('epipelagic');
+  const zoneRefs = useRef({});
 
   useEffect(() => {
-    // Create floating particles
-    const newParticles = Array.from({ length: 30 }, (_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      delay: Math.random() * 5,
-      duration: 10 + Math.random() * 10,
-    }));
-    setParticles(newParticles);
+    // Create refs for each zone
+    oceanZones.forEach(zone => {
+      zoneRefs.current[zone.id] = document.getElementById(zone.id);
+    });
   }, []);
+
+  const scrollToZone = (zoneId) => {
+    const element = document.getElementById(zoneId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      setActiveZone(zoneId);
+    }
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + 200;
+
+      for (let i = oceanZones.length - 1; i >= 0; i--) {
+        const zone = oceanZones[i];
+        const element = document.getElementById(zone.id);
+        if (element && element.offsetTop <= scrollPosition) {
+          setActiveZone(zone.id);
+          break;
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const getCreaturesForZone = (zoneId) => {
+    return creatures.filter(c => c.zone === zoneId);
+  };
 
   return (
     <div className={styles.container}>
       <Navigation />
-      <main className={styles.main}>
-        {/* Animated background particles */}
-        <div className={styles.particleContainer}>
-          {particles.map((particle) => (
-            <div
-              key={particle.id}
-              className={styles.particle}
-              style={{
-                left: `${particle.x}%`,
-                top: `${particle.y}%`,
-                animationDelay: `${particle.delay}s`,
-                animationDuration: `${particle.duration}s`,
-              }}
-            />
-          ))}
-        </div>
+      <div className={styles.mainLayout}>
+        {/* Left Sidebar Navigation */}
+        <aside className={styles.sidebar}>
+          <div className={styles.sidebarContent}>
+            <h2 className={styles.sidebarTitle}>Ocean Zones</h2>
+            <nav className={styles.zoneNav}>
+              {oceanZones.map((zone) => (
+                <button
+                  key={zone.id}
+                  className={`${styles.zoneNavButton} ${activeZone === zone.id ? styles.active : ''}`}
+                  onClick={() => scrollToZone(zone.id)}
+                  style={{ 
+                    borderLeftColor: zone.color,
+                    color: activeZone === zone.id ? zone.color : '#b0e0ff'
+                  }}
+                >
+                  <div className={styles.zoneNavInfo}>
+                    <span className={styles.zoneNavName}>{zone.name}</span>
+                    <span className={styles.zoneNavDepth}>{zone.depth}</span>
+                  </div>
+                  <div 
+                    className={styles.zoneNavIndicator}
+                    style={{ background: zone.color }}
+                  />
+                </button>
+              ))}
+            </nav>
+            <div className={styles.sidebarFooter}>
+              <a href="/references" className={styles.referencesLink}>
+                References →
+              </a>
+            </div>
+          </div>
+        </aside>
 
-        {/* Hero Section */}
-        <section className={styles.hero}>
-          <div className={styles.heroContent}>
-            <h1 className={styles.title}>
+        {/* Main Scrollable Content */}
+        <main className={styles.mainContent}>
+          {/* Hero Section */}
+          <section className={styles.hero}>
+            <h1 className={styles.heroTitle}>
               <span className={styles.titleMain}>Abyss Beings</span>
               <span className={styles.titleSub}>Explore the Depths</span>
             </h1>
@@ -54,130 +99,74 @@ export default function Home() {
               strangest and most exotic lifeforms that have adapted to survive in the
               most extreme environments on Earth.
             </p>
-            <div className={styles.ctaButtons}>
-              <button
-                className={styles.primaryButton}
-                onClick={() => router.push('/zones')}
+          </section>
+
+          {/* Zone Sections */}
+          {oceanZones.map((zone, zoneIndex) => {
+            const zoneCreatures = getCreaturesForZone(zone.id);
+            
+            return (
+              <section
+                key={zone.id}
+                id={zone.id}
+                className={styles.zoneSection}
+                style={{ 
+                  borderTopColor: zone.color,
+                  background: `linear-gradient(180deg, ${zone.color}15 0%, transparent 100%)`
+                }}
               >
-                Explore Ocean Zones
-              </button>
-              <button
-                className={styles.secondaryButton}
-                onClick={() => router.push('/creatures')}
-              >
-                Meet the Creatures
-              </button>
-            </div>
-          </div>
+                <div className={styles.zoneHeader}>
+                  <div 
+                    className={styles.zoneIndicator}
+                    style={{ background: zone.color }}
+                  />
+                  <h2 className={styles.zoneTitle}>{zone.name}</h2>
+                  <div className={styles.zoneMeta}>
+                    <span className={styles.zoneDepth}>{zone.depth}</span>
+                  </div>
+                </div>
 
-          {/* Interactive deep sea visual */}
-          <div className={styles.deepSeaVisual}>
-            <div className={styles.waterLayer}></div>
-            <div className={styles.midLayer}></div>
-            <div className={styles.deepLayer}></div>
-            <div className={styles.creatureFloating} style={{ animationDelay: '0s' }}>
-              🐟
-            </div>
-            <div className={styles.creatureFloating} style={{ animationDelay: '2s' }}>
-              🦑
-            </div>
-            <div className={styles.creatureFloating} style={{ animationDelay: '4s' }}>
-              🐙
-            </div>
-          </div>
-        </section>
+                <p className={styles.zoneDescription}>{zone.description}</p>
 
-        {/* Stats Section */}
-        <section className={styles.statsSection}>
-          <div className={styles.statCard}>
-            <div className={styles.statNumber}>70%</div>
-            <div className={styles.statLabel}>of Earth covered by ocean</div>
-          </div>
-          <div className={styles.statCard}>
-            <div className={styles.statNumber}>95%</div>
-            <div className={styles.statLabel}>of ocean remains unexplored</div>
-          </div>
-          <div className={styles.statCard}>
-            <div className={styles.statNumber}>6000m+</div>
-            <div className={styles.statLabel}>deepest ocean trenches</div>
-          </div>
-          <div className={styles.statCard}>
-            <div className={styles.statNumber}>1000+</div>
-            <div className={styles.statLabel}>species discovered each year</div>
-          </div>
-        </section>
+                {/* Zone Visual with Hotspots (Placeholders) */}
+                <div className={styles.zoneVisual}>
+                  <div 
+                    className={styles.zoneBackground}
+                    style={{ background: zone.color }}
+                  >
+                    {/* Placeholder hotspots - user will add custom graphics later */}
+                    <Hotspot x={25} y={30} info="Hotspot placeholder - custom graphics coming soon" />
+                    <Hotspot x={70} y={50} info="Hotspot placeholder - custom graphics coming soon" />
+                    <Hotspot x={50} y={75} info="Hotspot placeholder - custom graphics coming soon" />
+                  </div>
+                </div>
 
-        {/* Quick Facts Section */}
-        <section className={styles.factsSection}>
-          <h2 className={styles.sectionTitle}>Did You Know?</h2>
-          <div className={styles.factsGrid}>
-            <div className={styles.factCard}>
-              <div className={styles.factIcon}>💡</div>
-              <h3>Bioluminescence</h3>
-              <p>
-                Most deep-sea creatures produce their own light through bioluminescence,
-                creating a living light show in the darkness.
-              </p>
-            </div>
-            <div className={styles.factCard}>
-              <div className={styles.factIcon}>🌡️</div>
-              <h3>Extreme Conditions</h3>
-              <p>
-                Creatures at 6000m depth survive pressures 600 times greater than at
-                sea level and temperatures near freezing.
-              </p>
-            </div>
-            <div className={styles.factCard}>
-              <div className={styles.factIcon}>👁️</div>
-              <h3>Unique Adaptations</h3>
-              <p>
-                Many deep-sea creatures have developed transparent bodies, expandable
-                jaws, and otherworldly appearances to survive.
-              </p>
-            </div>
-            <div className={styles.factCard}>
-              <div className={styles.factIcon}>🔬</div>
-              <h3>Scientific Discovery</h3>
-              <p>
-                New species are constantly being discovered, with many having
-                adaptations that challenge our understanding of life.
-              </p>
-            </div>
-          </div>
-        </section>
+                {/* Creatures in this Zone */}
+                <div className={styles.creaturesGrid}>
+                  {zoneCreatures.map((creature) => (
+                    <div key={creature.id} className={styles.creatureCard}>
+                      <div className={styles.creatureIcon}>{creature.image}</div>
+                      <h3 className={styles.creatureName}>{creature.name}</h3>
+                      <p className={styles.creatureScientific}>{creature.scientificName}</p>
+                      <p className={styles.creatureDepth}>Depth: {creature.depth}</p>
+                      <p className={styles.creatureDescription}>{creature.description}</p>
+                      <div className={styles.adaptations}>
+                        <strong>Adaptations:</strong> {creature.adaptations}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            );
+          })}
 
-        {/* Ocean Layers Preview */}
-        <section className={styles.layersPreview}>
-          <h2 className={styles.sectionTitle}>Journey Through the Depths</h2>
-          <div className={styles.layersContainer}>
-            <div className={styles.layerCard} onClick={() => router.push('/zone/epipelagic')}>
-              <div className={styles.layerColor} style={{ background: '#0066FF' }}></div>
-              <h3>Epipelagic</h3>
-              <p>0-200m • Sunlit Zone</p>
-            </div>
-            <div className={styles.layerCard} onClick={() => router.push('/zone/mesopelagic')}>
-              <div className={styles.layerColor} style={{ background: '#003D99' }}></div>
-              <h3>Mesopelagic</h3>
-              <p>200-1000m • Twilight Zone</p>
-            </div>
-            <div className={styles.layerCard} onClick={() => router.push('/zone/bathypelagic')}>
-              <div className={styles.layerColor} style={{ background: '#001133' }}></div>
-              <h3>Bathypelagic</h3>
-              <p>1000-4000m • Midnight Zone</p>
-            </div>
-            <div className={styles.layerCard} onClick={() => router.push('/zone/abyssopelagic')}>
-              <div className={styles.layerColor} style={{ background: '#000722' }}></div>
-              <h3>Abyssopelagic</h3>
-              <p>4000-6000m • Abyssal Zone</p>
-            </div>
-            <div className={styles.layerCard} onClick={() => router.push('/zone/hadalpelagic')}>
-              <div className={styles.layerColor} style={{ background: '#000000' }}></div>
-              <h3>Hadalpelagic</h3>
-              <p>6000m+ • Hadal Zone</p>
-            </div>
-          </div>
-        </section>
-      </main>
+          {/* Footer */}
+          <footer className={styles.footer}>
+            <p>Abyss Beings - Interactive Deep Sea Exploration</p>
+            <a href="/references" className={styles.footerLink}>View References</a>
+          </footer>
+        </main>
+      </div>
     </div>
   );
 }

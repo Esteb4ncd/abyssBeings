@@ -1,0 +1,148 @@
+.container {
+  min-height: 100vh;
+  position: relative;
+  background: linear-gradient(180deg, #000510 0%, #000722 50%, #000000 100%);
+}
+
+.main {
+  padding-top: 100px;
+  padding-bottom: 4rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 4rem;
+  animation: fadeIn 0.8s ease;
+}
+
+.title {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 900;
+  color: #00d4ff;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+}
+
+.subtitle {
+  font-size: clamp(1.1rem, 2vw, 1.3rem);
+  color: #b0e0ff;
+  line-height: 1.7;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.referencesContent {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.referenceSection {
+  animation: fadeIn 0.8s ease;
+}
+
+.categoryTitle {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  color: #00d4ff;
+  margin-bottom: 2rem;
+  font-weight: 700;
+  border-bottom: 2px solid rgba(0, 212, 255, 0.3);
+  padding-bottom: 1rem;
+}
+
+.sourcesList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 2rem;
+}
+
+.sourceCard {
+  background: rgba(0, 20, 40, 0.6);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  border-radius: 16px;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.sourceCard:hover {
+  transform: translateY(-5px);
+  border-color: rgba(0, 212, 255, 0.6);
+  box-shadow: 0 10px 40px rgba(0, 212, 255, 0.2);
+}
+
+.sourceTitle {
+  font-size: 1.2rem;
+  color: #00d4ff;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.sourceDescription {
+  color: #b0e0ff;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
+
+.sourceLink {
+  display: inline-block;
+  color: #00ffff;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-family: var(--font-geist-mono);
+  transition: all 0.3s ease;
+  border-bottom: 1px solid transparent;
+}
+
+.sourceLink:hover {
+  color: #00d4ff;
+  border-bottom-color: #00d4ff;
+}
+
+.note {
+  margin-top: 4rem;
+  padding: 2rem;
+  background: rgba(0, 212, 255, 0.1);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  border-radius: 16px;
+  border-left: 4px solid #00d4ff;
+}
+
+.note p {
+  color: #b0e0ff;
+  line-height: 1.8;
+  margin: 0;
+}
+
+.note strong {
+  color: #00d4ff;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .main {
+    padding-top: 80px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .sourcesList {
+    grid-template-columns: 1fr;
+  }
+}
+

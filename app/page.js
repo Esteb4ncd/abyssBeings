@@ -52,7 +52,6 @@ export default function Home() {
   }, []);
 
   const getPrimaryCreatureForZone = (zoneId) => {
-    // Midnight -> Black Dragonfish (use dragonfish as data), Abyss -> Dumbo Octopus, Trenches -> Hadal Snailfish
     if (zoneId === 'bathypelagic') {
       const dragon = creatures.find(c => c.name.toLowerCase().includes('dragon'));
       return dragon || { id: 'black-dragonfish', name: 'Black Dragonfish', scientificName: '', depth: '1000-3000m', adaptations: '', image: '🐉', description: 'Large placeholder for Black Dragonfish.' };
@@ -62,8 +61,11 @@ export default function Home() {
       return dumbo || { id: 'dumbo-octopus', name: 'Dumbo Octopus', scientificName: '', depth: '3000-7000m', adaptations: '', image: '🐙', description: 'Large placeholder for Dumbo Octopus.' };
     }
     if (zoneId === 'hadalpelagic') {
-      const snail = creatures.find(c => c.id === 'hadal-snailfish') || creatures.find(c => c.name.toLowerCase().includes('snailfish'));
-      return snail || { id: 'hadal-snailfish', name: 'Hadal Snailfish', scientificName: '', depth: '6500-8000m', adaptations: '', image: '🐟', description: 'Large placeholder for Hadal Snailfish.' };
+      const hadalFeature =
+        creatures.find(c => c.id === 'stalked-crinoid') ||
+        creatures.find(c => c.name.toLowerCase().includes('crinoid')) ||
+        creatures.find(c => c.zone === 'hadalpelagic');
+      return hadalFeature || { id: 'stalked-crinoid', name: 'Stalked Crinoid', scientificName: '', depth: '6500-8000m', adaptations: '', image: '🌼', description: 'Large placeholder for Stalked Crinoid.' };
     }
     return null;
   };
@@ -193,7 +195,7 @@ export default function Home() {
                         <div className={styles.featuredIcon}>{primary.image}</div>
                         <div className={styles.featuredInfo}>
                           <h3 className={styles.featuredName}>
-                            {zone.id === 'bathypelagic' ? 'Black Dragonfish' : zone.id === 'abyssopelagic' ? 'Dumbo Octopus' : 'Hadal Snailfish'}
+                            {primary.name}
                           </h3>
                           <p className={styles.featuredMeta}>{primary.scientificName || '—'}</p>
                           <p className={styles.featuredDepth}>Depth: {primary.depth}</p>

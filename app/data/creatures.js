@@ -205,19 +205,19 @@ export const creatures = [
   ,
   // Hadal Snailfish placeholder for Trenches
   {
-    id: 'hadal-snailfish',
-    name: 'Hadal Snailfish',
-    scientificName: 'Pseudoliparis swirei',
+    id: 'stalked-crinoid',
+    name: 'Stalked Crinoid',
+    scientificName: 'Bathymetra sp.',
     zone: 'hadalpelagic',
     depth: '6500-8000m',
-    description: 'One of the deepest-living fish known, adapted to life in the hadal trenches under immense pressure.',
+    description: 'Ancient echinoderms anchored to the seafloor by a stalk, unfurling feathery arms to capture drifting particles and plankton along trench walls.',
     facts: [
-      'Recorded at depths beyond 8000 meters in trenches',
-      'Gelatinous body reduces air spaces to withstand pressure',
-      'Feeds on small crustaceans and invertebrates',
-      'Discovered with deep-sea landers and specialized cameras'
+      'They are relatives of sea stars and sea urchins',
+      'Flexible stalks let them sway into passing currents',
+      'Mucus-covered tube feet trap food on each arm',
+      'Some species can let go of their stalk and crawl to new sites'
     ],
-    adaptations: 'Pressure tolerance, soft bones, specialized membranes',
-    image: '🐟'
+    adaptations: 'Stalk anchoring, filter-feeding arms, slow metabolism',
+    image: '🌼'
   }
 ];

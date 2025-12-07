@@ -175,11 +175,6 @@ export default function Home() {
                       </div>
                     </div>
                     <p className={styles.zoneDescription}>{baseZone?.description}</p>
-                    <ul className={styles.zoneFacts}>
-                      {(zoneFacts[zone.id] || []).map((fact, idx) => (
-                        <li key={idx}>{fact}</li>
-                      ))}
-                    </ul>
                     <div className={styles.zoneVisual}>
                       <div 
                         className={styles.zoneBackground}

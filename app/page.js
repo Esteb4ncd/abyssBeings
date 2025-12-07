@@ -18,6 +18,7 @@ export default function Home() {
   const [showSidebar, setShowSidebar] = useState(false);
   const [activeCreature, setActiveCreature] = useState(null);
   const zoneRefs = useRef({});
+  const scrollTimeoutRef = useRef(null);
 
   useEffect(() => {
     // Create refs for each zone
@@ -37,7 +38,21 @@ export default function Home() {
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY + 200;
-      setShowSidebar(window.scrollY > window.innerHeight * 0.6);
+      const shouldShow = window.scrollY > window.innerHeight * 0.6;
+      setShowSidebar(shouldShow);
+
+      // Clear existing timeout
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+
+      // If sidebar should be visible, show it
+      if (shouldShow) {
+        // Set timeout to hide after 4 seconds of no scrolling
+        scrollTimeoutRef.current = setTimeout(() => {
+          setShowSidebar(false);
+        }, 4000);
+      }
 
       for (let i = focusedZones.length - 1; i >= 0; i--) {
         const zone = focusedZones[i];
@@ -50,7 +65,12 @@ export default function Home() {
     };
 
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+    };
   }, []);
 
   const getCreatureImagePath = (zoneId) => {
@@ -104,31 +124,22 @@ export default function Home() {
       <div className={styles.mainLayout}>
         {/* Left Sidebar Navigation */}
         <aside className={`${styles.sidebar} ${showSidebar ? '' : styles.sidebarHidden}`}>
-          <div className={styles.sidebarContent}>
-            <h2 className={styles.sidebarTitle}>Ocean Zones</h2>
-            <nav className={styles.zoneNav}>
-              {focusedZones.map((zone) => (
-                <button
-                  key={zone.id}
-                  className={`${styles.zoneNavButton} ${activeZone === zone.id ? styles.active : ''}`}
-                  onClick={() => scrollToZone(zone.id)}
-                  style={{ 
-                    borderLeftColor: zone.color,
-                    color: activeZone === zone.id ? zone.color : '#b0e0ff'
-                  }}
-                >
-                  <div className={styles.zoneNavInfo}>
-                    <span className={styles.zoneNavName}>{zone.label}</span>
-                    <span className={styles.zoneNavDepth}>{(oceanZones.find(z => z.id === zone.id) || {}).depth}</span>
-                  </div>
-                  <div 
-                    className={styles.zoneNavIndicator}
-                    style={{ background: zone.color }}
-                  />
-                </button>
-              ))}
-            </nav>
-          </div>
+          <nav className={styles.zoneNav}>
+            {focusedZones.map((zone) => (
+              <button
+                key={zone.id}
+                className={`${styles.zoneNavButton} ${activeZone === zone.id ? styles.active : ''}`}
+                onClick={() => scrollToZone(zone.id)}
+                style={{ 
+                  borderLeftColor: zone.color,
+                  color: activeZone === zone.id ? zone.color : '#b0e0ff'
+                }}
+                title={zone.label}
+              >
+                <span className={styles.zoneNavName}>{zone.label}</span>
+              </button>
+            ))}
+          </nav>
         </aside>
 
         {/* Main Scrollable Content */}

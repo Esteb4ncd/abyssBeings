@@ -14,61 +14,54 @@
 .sidebar {
   position: fixed;
   left: 0;
-  top: 0;
-  width: 280px;
-  height: 100vh;
-  background: rgba(0, 20, 40, 0.95);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 140px;
+  background: rgba(0, 20, 40, 0.6);
   backdrop-filter: blur(10px);
-  border-right: 1px solid rgba(0, 212, 255, 0.2);
-  overflow-y: auto;
+  border-right: 1px solid rgba(0, 212, 255, 0.15);
+  border-radius: 0 12px 12px 0;
+  padding: 1.5rem 0.75rem;
   z-index: 100;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+              opacity 0.4s ease,
+              width 0.4s ease;
 }
 
 .sidebarHidden {
-  transform: translateX(-110%);
+  transform: translateY(-50%) translateX(-100%);
   opacity: 0;
-  transition: transform 0.4s ease, opacity 0.4s ease;
+  pointer-events: none;
 }
 
 .sidebar:not(.sidebarHidden) {
-  transform: translateX(0);
+  transform: translateY(-50%) translateX(0);
   opacity: 1;
-  transition: transform 0.4s ease, opacity 0.4s ease;
-}
-
-.sidebarContent {
-  padding: 2rem 1.5rem;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.sidebarTitle {
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: #00d4ff;
-  margin-bottom: 2rem;
-  text-align: center;
 }
 
 .zoneNav {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  flex: 1;
+  align-items: center;
 }
 
 .zoneNavButton {
   background: transparent;
   border: none;
-  border-left: 4px solid;
-  padding: 1rem 1.5rem;
-  text-align: left;
+  border-left: 3px solid;
+  padding: 1rem 1rem;
+  width: 100%;
+  text-align: center;
   cursor: pointer;
   transition: all 0.3s ease;
   border-radius: 0 8px 8px 0;
   position: relative;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60px;
 }
 
 .zoneNavButton::before {
@@ -78,7 +71,7 @@
   top: 0;
   bottom: 0;
   width: 0;
-  background: rgba(0, 212, 255, 0.1);
+  background: rgba(0, 212, 255, 0.08);
   transition: width 0.3s ease;
 }
 
@@ -88,46 +81,23 @@
 }
 
 .zoneNavButton:hover {
-  transform: translateX(5px);
+  transform: translateX(3px);
 }
 
 .zoneNavButton.active {
-  background: rgba(0, 212, 255, 0.1);
-}
-
-.zoneNavInfo {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  position: relative;
-  z-index: 1;
+  background: rgba(0, 212, 255, 0.08);
 }
 
 .zoneNavName {
-  font-size: 1rem;
+  font-size: 0.8rem;
   font-weight: 600;
-}
-
-.zoneNavDepth {
-  font-size: 0.85rem;
-  opacity: 0.7;
-  font-family: var(--font-geist-mono);
-}
-
-.zoneNavIndicator {
-  position: absolute;
-  right: 1rem;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.zoneNavButton.active .zoneNavIndicator {
-  opacity: 1;
+  letter-spacing: 0.05em;
+  position: relative;
+  z-index: 1;
+  white-space: nowrap;
+  text-align: center;
+  padding: 0.25rem 0.5rem;
+  line-height: 1.4;
 }
 
 .sidebarFooter {
@@ -155,8 +125,9 @@
 /* Main Content */
 .mainContent {
   flex: 1;
-  margin-left: 280px;
+  margin-left: 140px;
   padding: 0;
+  transition: margin-left 0.4s ease;
 }
 
 .mainContentFull {
@@ -554,7 +525,12 @@
   }
 
   .mainContent {
-    margin-left: 240px;
+    margin-left: 120px;
+  }
+  
+  .sidebar {
+    width: 120px;
+    padding: 1.25rem 0.5rem;
   }
 
   .zoneSection {
@@ -575,12 +551,44 @@
   }
 
   .sidebar {
-    position: relative;
-    width: 100%;
+    position: fixed;
+    top: auto;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
     height: auto;
-    top: 0;
+    flex-direction: row;
     border-right: none;
-    border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+    border-bottom: none;
+    border-radius: 12px;
+    padding: 0.5rem;
+  }
+  
+  .sidebarHidden {
+    transform: translateX(-50%) translateY(calc(100% + 1rem));
+  }
+  
+  .sidebar:not(.sidebarHidden) {
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .zoneNav {
+    flex-direction: row;
+    gap: 0.25rem;
+  }
+  
+  .zoneNavButton {
+    border-left: none;
+    border-bottom: 3px solid;
+    border-radius: 8px;
+    padding: 0.5rem 0.75rem;
+    min-height: auto;
+    width: auto;
+  }
+  
+  .zoneNavName {
+    font-size: 0.7rem;
   }
 
   .mainContent {

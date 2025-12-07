@@ -182,8 +182,27 @@ export default function Home() {
                   background: `linear-gradient(180deg, rgba(0,0,0,${darkness}) 0%, transparent 100%)`
                 }}
               >
+                {/* Hotspots that roam the entire zone */}
+                <div className={styles.zoneHotspotsContainer}>
+                  {(zoneFacts[zone.id] || []).map((fact, i) => {
+                    const positions = [
+                      [15, 20], [75, 25], [45, 40], [85, 55], [25, 65], [65, 80]
+                    ];
+                    const pos = positions[i] || [50, 50];
+                    return (
+                      <Hotspot
+                        key={i}
+                        x={pos[0]}
+                        y={pos[1]}
+                        info={fact}
+                        delay={i * 0.3}
+                      />
+                    );
+                  })}
+                </div>
+                
                 <div className={styles.zoneGrid}>
-                  {/* Left: Zone info and hotspots */}
+                  {/* Left: Zone info */}
                   <div className={styles.zoneLeft}>
                     <div className={styles.zoneHeaderContainer}>
                       <div className={styles.zoneHeader}>
@@ -204,24 +223,7 @@ export default function Home() {
                       <div 
                         className={styles.zoneBackground}
                         style={{ background: zone.color }}
-                      >
-                        {/* Placeholder hotspots with short facts */}
-                        {(zoneFacts[zone.id] || []).map((fact, i) => {
-                          const positions = [
-                            [20, 25], [65, 30], [45, 50], [80, 60], [30, 75], [70, 85]
-                          ];
-                          const pos = positions[i] || [50, 50];
-                          return (
-                            <Hotspot
-                              key={i}
-                              x={pos[0]}
-                              y={pos[1]}
-                              info={fact}
-                              delay={i * 0.3}
-                            />
-                          );
-                        })}
-                      </div>
+                      />
                     </div>
                   </div>
 

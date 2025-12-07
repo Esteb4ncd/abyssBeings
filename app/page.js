@@ -106,16 +106,25 @@ export default function Home() {
       'No sunlight reaches here — perpetual darkness',
       'Pressure can exceed 100–400 atm',
       'Bioluminescence is common for hunting and signaling',
+      'Temperatures hover near freezing (2-4°C)',
+      'Creatures have large eyes to detect bioluminescent prey',
+      'Many species can produce their own light',
     ],
     abyssopelagic: [
       'Near-freezing temperatures year-round',
       'Food is scarce; many species are scavengers',
       'Life moves slowly to conserve energy',
+      'Pressure reaches 400-600 atmospheres',
+      'Most creatures are small and slow-moving',
+      'Detritus from above provides primary food source',
     ],
     hadalpelagic: [
       'Deep ocean trenches beyond 6000 m',
       'Immense pressure > 600 atm',
       'Species are highly specialized and rarely observed',
+      'Named after Hades, Greek god of the underworld',
+      'Only the most extreme-adapted organisms survive',
+      'Many species remain undiscovered by science',
     ],
   };
 
@@ -197,14 +206,21 @@ export default function Home() {
                         style={{ background: zone.color }}
                       >
                         {/* Placeholder hotspots with short facts */}
-                        {(zoneFacts[zone.id] || []).slice(0, 3).map((fact, i) => (
-                          <Hotspot
-                            key={i}
-                            x={[25, 65, 45][i]}
-                            y={[30, 50, 75][i]}
-                            info={fact}
-                          />
-                        ))}
+                        {(zoneFacts[zone.id] || []).map((fact, i) => {
+                          const positions = [
+                            [20, 25], [65, 30], [45, 50], [80, 60], [30, 75], [70, 85]
+                          ];
+                          const pos = positions[i] || [50, 50];
+                          return (
+                            <Hotspot
+                              key={i}
+                              x={pos[0]}
+                              y={pos[1]}
+                              info={fact}
+                              delay={i * 0.3}
+                            />
+                          );
+                        })}
                       </div>
                     </div>
                   </div>

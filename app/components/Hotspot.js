@@ -5,10 +5,27 @@ import styles from './Hotspot.module.css';
 
 export default function Hotspot({ x, y, info, delay = 0 }) {
   const [isActive, setIsActive] = useState(false);
+  const [isClicked, setIsClicked] = useState(false);
+
+  const handleClick = () => {
+    if (isClicked) {
+      setIsActive(false);
+      setIsClicked(false);
+    } else {
+      setIsActive(true);
+      setIsClicked(true);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (!isClicked) {
+      setIsActive(false);
+    }
+  };
 
   return (
     <div
-      className={styles.hotspotContainer}
+      className={`${styles.hotspotContainer} ${isActive ? styles.paused : ''}`}
       style={{
         left: `${x}%`,
         top: `${y}%`,
@@ -17,9 +34,9 @@ export default function Hotspot({ x, y, info, delay = 0 }) {
     >
       <button
         className={`${styles.hotspot} ${isActive ? styles.active : ''}`}
-        onClick={() => setIsActive(!isActive)}
+        onClick={handleClick}
         onMouseEnter={() => setIsActive(true)}
-        onMouseLeave={() => setIsActive(false)}
+        onMouseLeave={handleMouseLeave}
         aria-label="Interactive hotspot"
       >
         <span className={styles.pulse}></span>

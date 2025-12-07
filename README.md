@@ -1,6 +1,6 @@
 # Abyss Beings - Interactive Deep Sea Exploration
 
-An interactive digital publication that plunges readers into the mysterious world of the deep sea, highlighting the ocean's strangest and most exotic creatures.
+ An interactive digital publication that plunges readers into the mysterious world of the deep sea, highlighting the ocean's strangest and most exotic creatures.
 
 ## 🌊 Project Overview
 

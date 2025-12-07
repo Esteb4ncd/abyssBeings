@@ -17,7 +17,9 @@ export default function Home() {
   const [activeZone, setActiveZone] = useState(focusedZones[0].id);
   const [showSidebar, setShowSidebar] = useState(false);
   const [activeCreature, setActiveCreature] = useState(null);
+  const [openZoneDropdown, setOpenZoneDropdown] = useState(null);
   const zoneRefs = useRef({});
+  const zoneHeaderRefs = useRef({});
   const scrollTimeoutRef = useRef(null);
 
   useEffect(() => {
@@ -216,7 +218,11 @@ export default function Home() {
                 <div className={styles.zoneGrid}>
                   {/* Left: Zone info */}
                   <div className={styles.zoneLeft}>
-                    <div className={styles.zoneHeaderContainer}>
+                    <div 
+                      className={styles.zoneHeaderContainer}
+                      ref={(el) => zoneHeaderRefs.current[zone.id] = el}
+                      onMouseEnter={() => setOpenZoneDropdown(zone.id)}
+                    >
                       <div className={styles.zoneHeader}>
                         <div 
                           className={styles.zoneIndicator}
@@ -227,7 +233,7 @@ export default function Home() {
                           <span className={styles.zoneDepth}>{baseZone?.depth}</span>
                         </div>
                       </div>
-                      <div className={styles.zoneDescriptionDropdown}>
+                      <div className={`${styles.zoneDescriptionDropdown} ${openZoneDropdown === zone.id ? styles.visible : ''}`}>
                         <p className={styles.zoneDescription}>{baseZone?.description}</p>
                         <a 
                           href={zoneLinks[zone.id]} 

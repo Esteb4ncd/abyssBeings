@@ -270,7 +270,8 @@
   pointer-events: none;
 }
 
-.zoneHeaderContainer:hover .zoneDescriptionDropdown {
+.zoneHeaderContainer:hover .zoneDescriptionDropdown,
+.zoneDescriptionDropdown.visible {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);

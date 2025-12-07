@@ -146,6 +146,27 @@
   max-width: 1200px;
   margin: 0 auto;
   animation: fadeIn 0.8s ease;
+  position: relative;
+}
+
+.heroLogoBackground {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: 380px;
+  height: auto;
+  z-index: 0;
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+.heroLogo {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter: blur(0.5px);
 }
 
 .heroTitle {
@@ -153,6 +174,8 @@
   flex-direction: column;
   gap: 1rem;
   margin-bottom: 2rem;
+  position: relative;
+  z-index: 1;
 }
 
 .titleMain {
@@ -180,6 +203,8 @@
   color: #b0e0ff;
   max-width: 800px;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
 /* Zone Sections */
@@ -657,6 +682,11 @@
 
   .hero {
     padding: 3rem 2rem;
+  }
+
+  .heroLogoBackground {
+    max-width: 300px;
+    opacity: 0.12;
   }
 
   .zoneSection {

@@ -1,4 +1,5 @@
 'use client';
+import Image from 'next/image';
 import styles from './page.module.css';
 
 export default function ReferencesPage() {
@@ -89,6 +90,16 @@ export default function ReferencesPage() {
     <div className={styles.container}>
       <main className={styles.main}>
         <div className={styles.header}>
+          <div className={styles.logoContainer}>
+            <Image
+              src="/logo02.svg"
+              alt="Abyss Beings Logo"
+              width={300}
+              height={434}
+              className={styles.headerLogo}
+              priority
+            />
+          </div>
           <h1 className={styles.title}>References</h1>
           <p className={styles.subtitle}>
             Scientific sources and references used to ensure accuracy of information

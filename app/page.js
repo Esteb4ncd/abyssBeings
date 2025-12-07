@@ -169,6 +169,16 @@ export default function Home() {
         <main className={`${styles.mainContent} ${showSidebar ? '' : styles.mainContentFull}`}>
           {/* Hero Section */}
           <section className={styles.hero}>
+            <div className={styles.heroLogoBackground}>
+              <Image
+                src="/logo02.svg"
+                alt="Abyss Beings Logo"
+                width={800}
+                height={1156}
+                className={styles.heroLogo}
+                priority
+              />
+            </div>
             <h1 className={styles.heroTitle}>
               <span className={styles.titleMain}>Abyss Beings</span>
               <span className={styles.titleSub}>Explore the Depths</span>

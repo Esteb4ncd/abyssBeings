@@ -164,17 +164,21 @@ export default function Home() {
                 <div className={styles.zoneGrid}>
                   {/* Left: Zone info and hotspots */}
                   <div className={styles.zoneLeft}>
-                    <div className={styles.zoneHeader}>
-                      <div 
-                        className={styles.zoneIndicator}
-                        style={{ background: zone.color }}
-                      />
-                      <h2 className={styles.zoneTitle}>{zone.label}</h2>
-                      <div className={styles.zoneMeta}>
-                        <span className={styles.zoneDepth}>{baseZone?.depth}</span>
+                    <div className={styles.zoneHeaderContainer}>
+                      <div className={styles.zoneHeader}>
+                        <div 
+                          className={styles.zoneIndicator}
+                          style={{ background: zone.color }}
+                        />
+                        <h2 className={styles.zoneTitle}>{zone.label}</h2>
+                        <div className={styles.zoneMeta}>
+                          <span className={styles.zoneDepth}>{baseZone?.depth}</span>
+                        </div>
+                      </div>
+                      <div className={styles.zoneDescriptionDropdown}>
+                        <p className={styles.zoneDescription}>{baseZone?.description}</p>
                       </div>
                     </div>
-                    <p className={styles.zoneDescription}>{baseZone?.description}</p>
                     <div className={styles.zoneVisual}>
                       <div 
                         className={styles.zoneBackground}

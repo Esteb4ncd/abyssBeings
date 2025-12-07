@@ -14,82 +14,72 @@ export default function ReferencesPage() {
   };
   const references = [
     {
-      category: 'Midnight Zone (Bathypelagic)',
+      category: 'Ocean Zones',
       sources: [
         {
-          title: 'Bathypelagic (Midnight Zone) Overview — NOAA',
-          url: 'https://oceanexplorer.noaa.gov',
-          description: 'Depth, pressure, temperature, and light conditions of the midnight zone.'
+          title: 'Midnight Zone — Woods Hole Oceanographic Institution',
+          url: 'https://www.whoi.edu/ocean-learning-hub/ocean-topics/how-the-ocean-works/ocean-zones/midnight-zone/',
+          description: 'Comprehensive information about the bathypelagic (midnight) zone, including depth, pressure, temperature, and life forms.'
         },
         {
-          title: 'Black Dragonfish (Stomiidae) — Smithsonian Ocean',
-          url: 'https://ocean.si.edu',
-          description: 'General information on dragonfish family, red bioluminescence, and hunting behavior.'
+          title: 'Abyssal Zone — Woods Hole Oceanographic Institution',
+          url: 'https://www.whoi.edu/ocean-learning-hub/ocean-topics/how-the-ocean-works/ocean-zones/abyssal-zone/',
+          description: 'Detailed overview of the abyssopelagic zone, its characteristics, importance, and ongoing research.'
         },
         {
-          title: 'Deep-sea fish adaptations — Nature Education',
-          url: 'https://www.nature.com/scitable/knowledge/library/adaptations-to-life-in-the-deep-sea-23601439/',
-          description: 'Physiological adaptations for darkness, pressure, and low energy environments.'
+          title: 'Ocean Trench — National Geographic Education',
+          url: 'https://education.nationalgeographic.org/resource/ocean-trench/',
+          description: 'Educational resource about ocean trenches and the hadalpelagic zone, the deepest parts of the ocean.'
         }
       ]
     },
     {
-      category: 'The Abyss (Abyssopelagic)',
+      category: 'Deep Sea Creatures',
       sources: [
         {
-          title: 'Abyssopelagic Zone basics — National Geographic',
-          url: 'https://www.nationalgeographic.org/encyclopedia/ocean-zone/',
-          description: 'Environmental conditions, ecology, and energy sources at abyssal depths.'
+          title: 'Black Dragonfish (Idiacanthus atlanticus) — Australian Museum',
+          url: 'https://australian.museum/learn/animals/fishes/black-dragonfish-idiacanthus-atlanticus-brauer-1906/',
+          description: 'Scientific information about the Black Dragonfish, including identification, habitat, distribution, feeding behavior, and adaptations.'
         },
         {
-          title: 'Dumbo Octopus (Grimpoteuthis) — Smithsonian Ocean',
-          url: 'https://ocean.si.edu/ocean-life/invertebrates/dumbo-octopus',
-          description: 'Species overview, depth range, morphology, and behavior.'
+          title: 'What is a Dumbo Octopus? — Natural History Museum',
+          url: 'https://www.nhm.ac.uk/discover/what-is-a-dumbo-octopus.html',
+          description: 'Comprehensive guide to Dumbo octopuses (Grimpoteuthis), their unique characteristics, habitat, and behavior in the deep sea.'
         },
         {
-          title: 'Hydrothermal vents & abyssal ecosystems — WHOI',
-          url: 'https://www.whoi.edu',
-          description: 'Ecosystem functioning, vent communities, and food webs in the abyss.'
+          title: 'Stalked Crinoid — U.S. Geological Survey',
+          url: 'https://www.usgs.gov/media/images/stalked-crinoid',
+          description: 'Information and imagery about stalked crinoids, ancient echinoderms found in the deepest ocean trenches.'
         }
       ]
     },
     {
-      category: 'The Trenches (Hadalpelagic)',
+      category: 'General Ocean Science Resources',
       sources: [
         {
-          title: 'Hadal Zone overview — MBARI',
-          url: 'https://www.mbari.org',
-          description: 'Characteristics of hadal trenches and research methods (landers/cameras).'
+          title: 'Woods Hole Oceanographic Institution — Ocean Learning Hub',
+          url: 'https://www.whoi.edu/ocean-learning-hub/',
+          description: 'Educational resources about ocean zones, marine life, and oceanographic research.'
         },
         {
-          title: 'Hadal Snailfish (Pseudoliparis swirei) — Journal & press summaries',
-          url: 'https://www.journals.elsevier.com/deep-sea-research',
-          description: 'Discoveries of deepest-living fish, physiology, and pressure adaptations.'
+          title: 'National Geographic Education — Ocean Resources',
+          url: 'https://education.nationalgeographic.org/',
+          description: 'Educational materials about oceanography, marine ecosystems, and deep-sea exploration.'
         },
         {
-          title: 'WoRMS / FishBase — Taxonomy & distributions',
-          url: 'https://www.fishbase.se',
-          description: 'Authoritative species records and scientific naming for hadal fauna.'
-        }
-      ]
-    },
-    {
-      category: 'General & Educational',
-      sources: [
-        {
-          title: 'Smithsonian Ocean Portal',
-          url: 'https://ocean.si.edu',
-          description: 'Educational content about ocean ecosystems, creatures, and research.'
+          title: 'Australian Museum — Marine Life',
+          url: 'https://australian.museum/learn/animals/',
+          description: 'Scientific information about marine animals, including deep-sea species and their adaptations.'
         },
         {
-          title: 'NOAA Ocean Service',
-          url: 'https://oceanservice.noaa.gov',
-          description: 'Government resource on ocean science and marine life.'
+          title: 'Natural History Museum — Discover',
+          url: 'https://www.nhm.ac.uk/discover/',
+          description: 'Educational content about natural history, including deep-sea creatures and ocean ecosystems.'
         },
         {
-          title: 'MBARI — Monterey Bay Aquarium Research Institute',
-          url: 'https://www.mbari.org',
-          description: 'Research updates, species spotlights, and deep-sea exploration.'
+          title: 'U.S. Geological Survey — Ocean Science',
+          url: 'https://www.usgs.gov/',
+          description: 'Government resource providing scientific information about marine geology and deep-sea ecosystems.'
         }
       ]
     }
@@ -144,4 +134,5 @@ export default function ReferencesPage() {
     </div>
   );
 }
+
 

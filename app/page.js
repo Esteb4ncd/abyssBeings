@@ -303,6 +303,7 @@ export default function Home() {
           {/* Footer */}
           <footer className={styles.footer}>
             <p>Abyss Beings - Interactive Deep Sea Exploration</p>
+            <p className={styles.footerCredit}>Made by Esteban Cruz Dominguez | A01409700</p>
             <a href="/references" className={styles.footerLink}>View References</a>
           </footer>
         </main>

@@ -529,6 +529,13 @@
   margin-top: 4rem;
 }
 
+.footerCredit {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+  opacity: 0.8;
+  color: #b0e0ff;
+}
+
 .footerLink {
   display: inline-block;
   margin-top: 1rem;

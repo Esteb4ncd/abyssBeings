@@ -16,6 +16,7 @@ export default function Home() {
 
   const [activeZone, setActiveZone] = useState(focusedZones[0].id);
   const [showSidebar, setShowSidebar] = useState(false);
+  const [activeCreature, setActiveCreature] = useState(null);
   const zoneRefs = useRef({});
 
   useEffect(() => {
@@ -200,7 +201,12 @@ export default function Home() {
                   {/* Right: Single Large Creature SVG */}
                   <div className={styles.zoneRight}>
                     {primary && (
-                      <div className={styles.featuredCreature}>
+                      <div 
+                        className={`${styles.featuredCreature} ${activeCreature === zone.id ? styles.active : ''}`}
+                        onMouseEnter={() => setActiveCreature(zone.id)}
+                        onMouseLeave={() => setActiveCreature(null)}
+                        onClick={() => setActiveCreature(activeCreature === zone.id ? null : zone.id)}
+                      >
                         <div className={styles.featuredIcon}>
                           <Image
                             src={getCreatureImagePath(zone.id)}

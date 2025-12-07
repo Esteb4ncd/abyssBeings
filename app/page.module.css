@@ -356,6 +356,15 @@
   border-radius: 0;
   padding: 0;
   margin-top: 0;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.featuredCreature:hover .featuredIcon,
+.featuredCreature.active .featuredIcon {
+  filter: drop-shadow(0 0 40px rgba(0, 212, 255, 0.8));
+  transform: scale(1.05);
 }
 
 .featuredIcon {
@@ -368,6 +377,26 @@
   width: 100%;
   max-width: 600px;
   margin: 0 auto;
+  transition: all 0.3s ease;
+}
+
+.featuredInfo {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.4s ease 0.1s,
+              transform 0.4s ease 0.1s;
+  margin-top: 0;
+}
+
+.featuredCreature:hover .featuredInfo,
+.featuredCreature.active .featuredInfo {
+  max-height: 500px;
+  opacity: 1;
+  transform: translateY(0);
+  margin-top: 1.25rem;
 }
 
 .featuredName {
@@ -375,6 +404,13 @@
   color: #00d4ff;
   margin-bottom: 0.5rem;
   font-weight: 800;
+  transition: color 0.3s ease;
+}
+
+.featuredCreature:hover .featuredName,
+.featuredCreature.active .featuredName {
+  color: #00ffff;
+  text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
 }
 
 .featuredMeta {
@@ -393,6 +429,7 @@
 .featuredDescription {
   color: #b0e0ff;
   opacity: 0.9;
+  line-height: 1.7;
 }
 
 .creatureCard {

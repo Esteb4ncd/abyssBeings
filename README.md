@@ -1,4 +1,4 @@
-okay now. i want less stuff going on, it should be just one srollable page, on the left side it should have like a nav bar with the zones, it should yes show like hotspots leave as place holders bc i will later add custom grphics for that, and also at least two animals per zone and a short little paragraph that explains each zone. also make a sepparate page that has all theof the references you used to get the accurate info for the project
+# https://abyss-beings.vercel.app/
 
 
 # Abyss Beings - Interactive Deep Sea Exploration

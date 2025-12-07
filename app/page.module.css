@@ -334,10 +334,15 @@
 }
 
 .featuredIcon {
-  font-size: clamp(6rem, 12vw, 12rem);
   text-align: center;
   filter: drop-shadow(0 0 30px rgba(0, 212, 255, 0.5));
   animation: float 4s ease-in-out infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .featuredInfo {}

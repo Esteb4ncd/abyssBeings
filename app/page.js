@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import Hotspot from './components/Hotspot';
 import { oceanZones, creatures } from './data/creatures';
 import styles from './page.module.css';
@@ -50,6 +51,15 @@ export default function Home() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const getCreatureImagePath = (zoneId) => {
+    const imageMap = {
+      'bathypelagic': '/creatures/blackDragonFish.svg',
+      'abyssopelagic': '/creatures/dumbooOctopus.svg',
+      'hadalpelagic': '/creatures/stalkedCrinoid.svg',
+    };
+    return imageMap[zoneId] || null;
+  };
 
   const getPrimaryCreatureForZone = (zoneId) => {
     if (zoneId === 'bathypelagic') {
@@ -188,18 +198,27 @@ export default function Home() {
                     </div>
                   </div>
 
-                  {/* Right: Single Large Creature Placeholder */}
+                  {/* Right: Single Large Creature SVG */}
                   <div className={styles.zoneRight}>
                     {primary && (
                       <div className={styles.featuredCreature}>
-                        <div className={styles.featuredIcon}>{primary.image}</div>
+                        <div className={styles.featuredIcon}>
+                          <Image
+                            src={getCreatureImagePath(zone.id)}
+                            alt={primary.name}
+                            width={600}
+                            height={600}
+                            style={{ width: '100%', height: 'auto', objectFit: 'contain' }}
+                            priority
+                          />
+                        </div>
                         <div className={styles.featuredInfo}>
                           <h3 className={styles.featuredName}>
                             {primary.name}
                           </h3>
                           <p className={styles.featuredMeta}>{primary.scientificName || '—'}</p>
                           <p className={styles.featuredDepth}>Depth: {primary.depth}</p>
-                          <p className={styles.featuredDescription}>Large placeholder graphic area — custom illustration to be added.</p>
+                          <p className={styles.featuredDescription}>{primary.description || 'Large placeholder graphic area — custom illustration to be added.'}</p>
                         </div>
                       </div>
                     )}

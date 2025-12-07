@@ -2,6 +2,64 @@
   position: absolute;
   transform: translate(-50%, -50%);
   z-index: 10;
+  animation: floatAround 10s ease-in-out infinite;
+}
+
+.hotspotContainer:nth-of-type(1) {
+  animation: floatAround1 10s ease-in-out infinite;
+}
+
+.hotspotContainer:nth-of-type(2) {
+  animation: floatAround2 12s ease-in-out infinite;
+}
+
+.hotspotContainer:nth-of-type(3) {
+  animation: floatAround3 9s ease-in-out infinite;
+}
+
+@keyframes floatAround1 {
+  0%, 100% {
+    transform: translate(-50%, -50%) translate(0, 0);
+  }
+  25% {
+    transform: translate(-50%, -50%) translate(20px, -25px);
+  }
+  50% {
+    transform: translate(-50%, -50%) translate(-15px, -20px);
+  }
+  75% {
+    transform: translate(-50%, -50%) translate(25px, 15px);
+  }
+}
+
+@keyframes floatAround2 {
+  0%, 100% {
+    transform: translate(-50%, -50%) translate(0, 0);
+  }
+  25% {
+    transform: translate(-50%, -50%) translate(-18px, 20px);
+  }
+  50% {
+    transform: translate(-50%, -50%) translate(22px, -18px);
+  }
+  75% {
+    transform: translate(-50%, -50%) translate(-12px, -25px);
+  }
+}
+
+@keyframes floatAround3 {
+  0%, 100% {
+    transform: translate(-50%, -50%) translate(0, 0);
+  }
+  25% {
+    transform: translate(-50%, -50%) translate(15px, 22px);
+  }
+  50% {
+    transform: translate(-50%, -50%) translate(-20px, 18px);
+  }
+  75% {
+    transform: translate(-50%, -50%) translate(18px, -22px);
+  }
 }
 
 .hotspot {

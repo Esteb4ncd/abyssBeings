@@ -129,9 +129,9 @@ export default function Home() {
   };
 
   const zoneLinks = {
-    bathypelagic: 'https://www.nationalgeographic.com/environment/article/deep-sea',
-    abyssopelagic: 'https://www.nationalgeographic.com/environment/article/ocean-depths',
-    hadalpelagic: 'https://www.nationalgeographic.com/environment/article/ocean-trenches',
+    bathypelagic: 'https://www.whoi.edu/ocean-learning-hub/ocean-topics/how-the-ocean-works/ocean-zones/midnight-zone/',
+    abyssopelagic: 'https://www.whoi.edu/ocean-learning-hub/ocean-topics/how-the-ocean-works/ocean-zones/abyssal-zone/',
+    hadalpelagic: 'https://education.nationalgeographic.org/resource/ocean-trench/',
   };
 
   const creatureLinks = {

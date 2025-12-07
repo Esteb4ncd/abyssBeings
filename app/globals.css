@@ -31,6 +31,12 @@ body {
   background: linear-gradient(180deg, #000510 0%, #000722 50%, #000000 100%);
 }
 
+/* Display font for headers */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Audiowide', var(--font-geist-sans), -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  letter-spacing: 1px;
+}
+
 a {
   color: inherit;
   text-decoration: none;

@@ -128,6 +128,18 @@ export default function Home() {
     ],
   };
 
+  const zoneLinks = {
+    bathypelagic: 'https://www.nationalgeographic.com/environment/article/deep-sea',
+    abyssopelagic: 'https://www.nationalgeographic.com/environment/article/ocean-depths',
+    hadalpelagic: 'https://www.nationalgeographic.com/environment/article/ocean-trenches',
+  };
+
+  const creatureLinks = {
+    'black-dragonfish': 'https://australian.museum/learn/animals/fishes/black-dragonfish-idiacanthus-atlanticus-brauer-1906/',
+    'dumbo-octopus': 'https://www.nhm.ac.uk/discover/what-is-a-dumbo-octopus.html',
+    'stalked-crinoid': 'https://www.usgs.gov/media/images/stalked-crinoid',
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.mainLayout}>
@@ -217,6 +229,15 @@ export default function Home() {
                       </div>
                       <div className={styles.zoneDescriptionDropdown}>
                         <p className={styles.zoneDescription}>{baseZone?.description}</p>
+                        <a 
+                          href={zoneLinks[zone.id]} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className={styles.learnMoreButton}
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          Learn More →
+                        </a>
                       </div>
                     </div>
                     <div className={styles.zoneVisual}>
@@ -253,6 +274,17 @@ export default function Home() {
                           <p className={styles.featuredMeta}>{primary.scientificName || '—'}</p>
                           <p className={styles.featuredDepth}>Depth: {primary.depth}</p>
                           <p className={styles.featuredDescription}>{primary.description || 'Large placeholder graphic area — custom illustration to be added.'}</p>
+                          {creatureLinks[primary.id] && (
+                            <a 
+                              href={creatureLinks[primary.id]} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className={styles.learnMoreButton}
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              Learn More →
+                            </a>
+                          )}
                         </div>
                       </div>
                     )}

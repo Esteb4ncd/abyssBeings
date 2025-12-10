@@ -215,7 +215,7 @@ export default function Home() {
                     const pos = positions[i] || [50, 50];
                     return (
                       <Hotspot
-                        key={i}
+                        key={`${zone.id}-hotspot-${i}`}
                         x={pos[0]}
                         y={pos[1]}
                         info={fact}
